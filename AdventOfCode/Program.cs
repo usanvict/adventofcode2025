@@ -8,7 +8,7 @@ internal static class Program
     {
         Console.WriteLine("Available days:");
 
-        string testInputsPath = "TestInputes";
+        string testInputsPath = "./TestInputes";
         if (Directory.Exists(testInputsPath))
         {
             var days = Directory.GetDirectories(testInputsPath)

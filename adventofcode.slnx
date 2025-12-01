@@ -1,2 +1,5 @@
 <Solution>
+  <Folder Name="/AdventOfCode/">
+    <Project Path="AdventOfCode/adventofcode.csproj" />
+  </Folder>
 </Solution>

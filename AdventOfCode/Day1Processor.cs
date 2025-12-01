@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 namespace adventofcode;
 
 public class Day1Processor : IDayProcessor
@@ -9,14 +6,44 @@ public class Day1Processor : IDayProcessor
     {
         Console.WriteLine($"Processing Day 1 specific file: {selectedFile}");
 
+        int startNumber = 50;
+        int passwordNumber = 0;
+
         try
         {
-            using StreamReader sr = new StreamReader(Path.Combine(dayPath, selectedFile));
+            using StreamReader sr = new(Path.Combine(dayPath, selectedFile));
             string? line;
             while ((line = sr.ReadLine()) != null)
             {
-                Console.WriteLine($"Day 1 specific processing: {line}");
+                if (line.Length >= 2 && int.TryParse(line.AsSpan(1), out int number))
+                {
+                    char action = line[0];
+                    if (action == 'R')
+                    {
+                        Console.WriteLine($"Action: {action}, Number: {number}");
+                        startNumber += number;
+                        if (startNumber >= 100 || startNumber < 0)
+                        {
+                            startNumber = (startNumber % 100 + 100) % 100;
+                        }
+                    }
+                    else if (action == 'L')
+                    {
+                        Console.WriteLine($"Action: {action}, Number: {number}");
+                        startNumber -= number;
+                        if (startNumber < 0 || startNumber >= 100)
+                        {
+                            startNumber = (startNumber % 100 + 100) % 100;
+                        }
+                    }
+                    if (startNumber == 0)
+                    {
+                        passwordNumber += 1;
+                    }
+
+                }
             }
+            Console.WriteLine($"The password number for Day 1 is: {passwordNumber}");
         }
         catch (Exception e)
         {
