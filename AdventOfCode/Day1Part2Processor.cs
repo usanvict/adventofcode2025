@@ -1,6 +1,6 @@
 namespace adventofcode;
 
-public class Day1Processor : IDayProcessor
+public class Day1Part2Processor : IDayProcessor
 {
     public void ProcessFile(string dayPath, string selectedFile)
     {
@@ -21,26 +21,31 @@ public class Day1Processor : IDayProcessor
                     if (action == 'R')
                     {
                         Console.WriteLine($"Action: {action}, Number: {number}");
+                        int multiplier = (startNumber + number) / 100;
+                        Console.WriteLine($"Multiplier: {multiplier}");
+                        passwordNumber += multiplier;
                         startNumber += number;
                         if (startNumber >= 100 || startNumber < 0)
                         {
                             startNumber = (startNumber % 100 + 100) % 100;
                         }
+                        Console.WriteLine($"New start number: {startNumber}");
                     }
                     else if (action == 'L')
                     {
                         Console.WriteLine($"Action: {action}, Number: {number}");
+                        int reversed = (100 - startNumber) % 100;
+                        Console.WriteLine($"Reversed start number: {reversed}");
+                        int multiplier = (reversed + number) / 100;
+                        Console.WriteLine($"Multiplier: {multiplier}");
+                        passwordNumber += multiplier;
                         startNumber -= number;
                         if (startNumber < 0 || startNumber >= 100)
                         {
                             startNumber = (startNumber % 100 + 100) % 100;
                         }
+                        Console.WriteLine($"New start number: {startNumber}");
                     }
-                    if (startNumber == 0)
-                    {
-                        passwordNumber += 1;
-                    }
-
                 }
             }
             Console.WriteLine($"The password number for Day 1 is: {passwordNumber}");

@@ -54,6 +54,19 @@ internal static class Program
             {
                 Console.WriteLine($"\nSelected day: {dayFolder}");
 
+                Console.WriteLine("\nChoose a part to process by entering the corresponding number (1 for Part 1, 2 for Part 2):");
+                string? partSelectionInput = Console.ReadLine();
+                if (string.IsNullOrEmpty(partSelectionInput))
+                {
+                    Console.WriteLine("Part selection cannot be empty. Exiting.");
+                    return;
+                }
+                if (!int.TryParse(partSelectionInput, out int part) || (part != 1 && part != 2))
+                {
+                    Console.WriteLine("Invalid part selection. Exiting.");
+                    return;
+                }
+
                 Console.WriteLine("\nAvailable files:");
                 var files = Directory.GetFiles(dayPath)
                                      .Select(Path.GetFileName)
@@ -92,7 +105,7 @@ internal static class Program
                 }
 
                 IDayProcessorFactory factory = new DayProcessorFactory();
-                IDayProcessor processor = factory.GetDayProcessor(dayFolder);
+                IDayProcessor processor = factory.GetDayProcessor(dayFolder, part);
                 processor.ProcessFile(dayPath, selectedFile);
             }
             else
