@@ -4,17 +4,21 @@ public class DayProcessorFactory : IDayProcessorFactory
 {
     public IDayProcessor GetDayProcessor(string day, int part)
     {
-        if (day == "Day1")
+        return day switch
         {
-            if (part == 1)
+            "Day1" => part switch
             {
-                return new Day1Part1Processor();
-            }
-            else if (part == 2)
+                1 => new Day1Part1Processor(),
+                2 => new Day1Part2Processor(),
+                _ => throw new ArgumentException($"Invalid part for Day 1: {part}")
+            },
+            "Day2" => part switch
             {
-                return new Day1Part2Processor();
-            }
-        }
-        throw new ArgumentException($"No processor found for day: {day} part: {part}");
+                1 => new Day2Part1Processor(),
+                2 => new Day2Part2Processor(),
+                _ => throw new ArgumentException($"Invalid part for Day 2: {part}")
+            },
+            _ => throw new ArgumentException($"No processor found for day: {day} part: {part}")
+        };
     }
 }
