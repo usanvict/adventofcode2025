@@ -18,6 +18,12 @@ public class DayProcessorFactory : IDayProcessorFactory
                 2 => new Day2Part2Processor(),
                 _ => throw new ArgumentException($"Invalid part for Day 2: {part}")
             },
+            "Day3" => part switch
+            {
+                1 => new Day3Part1Processor(),
+                2 => new Day3Part2Processor(),
+                _ => throw new ArgumentException($"Invalid part for Day 3: {part}")
+            },
             _ => throw new ArgumentException($"No processor found for day: {day} part: {part}")
         };
     }
