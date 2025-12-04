@@ -1,6 +1,3 @@
-using Microsoft.VisualBasic;
-using System.Linq;
-
 namespace adventofcode;
 
 public class Day3Part1Processor : IDayProcessor
@@ -21,6 +18,7 @@ public class Day3Part1Processor : IDayProcessor
                 List<string> numberArray = [.. line.Select(c => c.ToString())];
 
                 int maxFirstDigit = 0;
+                int maxFirstDigitPosition = -1;
                 int maximumJoltage = 0;
 
                 for (int i = 0; i < numberArray.Count - 1; i++)
@@ -29,17 +27,18 @@ public class Day3Part1Processor : IDayProcessor
                     {
                         continue;
                     }
-                    maxFirstDigit = int.Parse(numberArray[i]);
 
-                    for (int j = i + 1; j < numberArray.Count; j++)
+                    maxFirstDigit = int.Parse(numberArray[i]);
+                    maxFirstDigitPosition = i;
+                }
+
+                for (int j = maxFirstDigitPosition + 1; j < numberArray.Count; j++)
+                {
+                    string secondDigit = numberArray[j];
+                    int newNumber = int.Parse(maxFirstDigit + secondDigit);
+                    if (newNumber > maximumJoltage)
                     {
-                        string firstDigit = numberArray[i];
-                        string secondDigit = numberArray[j];
-                        int newNumber = int.Parse(firstDigit + secondDigit);
-                        if (newNumber > maximumJoltage)
-                        {
-                            maximumJoltage = newNumber;
-                        }
+                        maximumJoltage = newNumber;
                     }
                 }
                 maximumJoltageSum += maximumJoltage;
